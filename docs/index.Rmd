@@ -3,7 +3,7 @@ title: "U.S. Caribbean NCRMP Species for SEDAR "
 author: "[Jeremiah Blondeau](https://github.com/jeremiaheb)"
 date: "`r format(Sys.time(), '%d %B %Y')`"
 mail: "jblondeau@gmail.com"
-github: "jeremiaheb"
+github: "https://github.com/jeremiaheb/SEDAR_Data_Triage"
 logo: "noaa_logo.png"
 output:
   ProjectTemplates::Personal:
