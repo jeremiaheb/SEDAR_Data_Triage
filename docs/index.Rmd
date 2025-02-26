@@ -1,0 +1,199 @@
+---
+title: "U.S. Caribbean NCRMP Species for SEDAR "
+author: "[Jeremiah Blondeau](https://github.com/jeremiaheb)"
+date: "`r format(Sys.time(), '%d %B %Y')`"
+mail: "jblondeau@gmail.com"
+github: "jeremiaheb"
+logo: "noaa_logo.png"
+output:
+  ProjectTemplates::Personal:
+    toc: TRUE
+    number_sections: FALSE
+    code_folding: "hide"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE)
+# Needed Libraries
+library(rvc)
+library(tidyverse)
+library(DT)
+library(readxl)
+library(downloadthis)
+
+# Source Plotting Functions
+source('../code/Triage_Outputs.R', local = knitr::knit_global())
+
+# Read in data sets
+prico <- readRDS("../data/prico_2001_2023_calibrated.rds")
+sttstj <- readRDS("../data/sttstj_2001_2023_calibrated.rds")
+stx <- readRDS("../data/stx_2001_2023_calibrated.rds")
+```
+
+# **Puerto Rico**
+
+## Species
+
+These species meet the following criteria
+
+1)  Have a calibration factor
+2)  Have at least 1% occurrence in any of the NCRMP sampling years 2016 - present
+
+<br>
+
+```{r echo=FALSE}
+
+initial_prico_list <- read_xlsx("../data/island based FMP Stocks list.xlsx", sheet = "PRICO")
+
+table  <- SEDAR_triage_occurrence(df = prico, spp_list = initial_prico_list)
+
+datatable(table, 
+          class = "cell-border stripe", 
+          rownames = FALSE,
+          colnames = c("Species Code", "Family Name", "Scientific Name", "Common Name"),
+          options = list(
+            columnDefs = list(list(className = 'dt-center', targets = "_all")),
+            info = FALSE,
+            paging = TRUE,
+            searching = TRUE
+          ))
+```
+
+## Survey Estimates
+
+```{r echo=FALSE}
+
+metric_outputs <- SEDAR_triage_output(prico, table$SPECIES_CD) %>% 
+  select(YEAR, SPECIES_CD, REGION, n, density, density_CV, occurrence, occurrence_CV, num_observations)
+
+datatable(metric_outputs, 
+          class = "cell-border stripe", 
+          rownames = FALSE,
+          colnames = c("Year", "Species Code", "Region", "Sample Number", "Density", "Denstiy CV", "Occurrence", "Occurrence CV", "Number of Observations"),
+          options = list(
+            columnDefs = list(list(className = 'dt-center', targets = "_all")),
+            info = FALSE,
+            paging = TRUE,
+            searching = TRUE
+          ))
+
+download_this(metric_outputs,
+              output_name = "PRICO_SurveyEstimates",
+              output_extension = ".xlsx",
+              button_label = "Download data as xlsx",
+              button_type = "default",
+              has_icon = TRUE,
+              icon = "fa fa-save")
+```
+
+# **St. Thomas and St. John**
+
+## Species
+
+These species meet the following criteria
+
+1)  Have a calibration factor
+2)  Have at least 1% occurrence in any of the NCRMP sampling years 2016 - present
+
+<br>
+
+```{r echo=FALSE}
+
+initial_sttstj_list <- read_xlsx("../data/island based FMP Stocks list.xlsx", sheet = "STTSTJ")
+
+table  <- SEDAR_triage_occurrence(df = sttstj, spp_list = initial_sttstj_list)
+
+datatable(table, 
+          class = "cell-border stripe", 
+          rownames = FALSE,
+          colnames = c("Species Code", "Family Name", "Scientific Name", "Common Name"),
+          options = list(
+            columnDefs = list(list(className = 'dt-center', targets = "_all")),
+            info = FALSE,
+            paging = TRUE,
+            searching = TRUE
+          ))
+```
+
+## Survey Estimates
+
+```{r echo=FALSE}
+
+metric_outputs <- SEDAR_triage_output(sttstj, table$SPECIES_CD) %>% 
+  select(YEAR, SPECIES_CD, REGION, n, density, density_CV, occurrence, occurrence_CV, num_observations)
+
+datatable(metric_outputs, 
+          class = "cell-border stripe", 
+          rownames = FALSE,
+          colnames = c("Year", "Species Code", "Region", "Sample Number", "Density", "Denstiy CV", "Occurrence", "Occurrence CV", "Number of Observations"),
+          options = list(
+            columnDefs = list(list(className = 'dt-center', targets = "_all")),
+            info = FALSE,
+            paging = TRUE,
+            searching = TRUE
+          ))
+
+download_this(metric_outputs,
+              output_name = "STTSTJ_SurveyEstimates",
+              output_extension = ".xlsx",
+              button_label = "Download data as xlsx",
+              button_type = "default",
+              has_icon = TRUE,
+              icon = "fa fa-save")
+```
+
+# **St. Croix**
+
+## Species
+
+These species meet the following criteria
+
+1)  Have a calibration factor
+2)  Have at least 1% occurrence in any of the NCRMP sampling years 2016 - present
+
+<br>
+
+```{r echo=FALSE}
+
+initial_stx_list <- read_xlsx("../data/island based FMP Stocks list.xlsx", sheet = "STX")
+
+table  <- SEDAR_triage_occurrence(df = stx, spp_list = initial_stx_list)
+
+datatable(table, 
+          class = "cell-border stripe", 
+          rownames = FALSE,
+          colnames = c("Species Code", "Family Name", "Scientific Name", "Common Name"),
+          options = list(
+            columnDefs = list(list(className = 'dt-center', targets = "_all")),
+            info = FALSE,
+            paging = TRUE,
+            searching = TRUE
+          ))
+```
+
+## Survey Estimates
+
+```{r echo=FALSE}
+
+metric_outputs <- SEDAR_triage_output(stx, table$SPECIES_CD) %>% 
+  select(YEAR, SPECIES_CD, REGION, n, density, density_CV, occurrence, occurrence_CV, num_observations)
+
+datatable(metric_outputs, 
+          class = "cell-border stripe", 
+          rownames = FALSE,
+          colnames = c("Year", "Species Code", "Region", "Sample Number", "Density", "Denstiy CV", "Occurrence", "Occurrence CV", "Number of Observations"),
+          options = list(
+            columnDefs = list(list(className = 'dt-center', targets = "_all")),
+            info = FALSE,
+            paging = TRUE,
+            searching = TRUE
+          ))
+
+download_this(metric_outputs,
+              output_name = "STX_SurveyEstimates",
+              output_extension = ".xlsx",
+              button_label = "Download data as xlsx",
+              button_type = "default",
+              has_icon = TRUE,
+              icon = "fa fa-save")
+```
