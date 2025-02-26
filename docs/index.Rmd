@@ -75,7 +75,8 @@ datatable(metric_outputs,
             info = FALSE,
             paging = TRUE,
             searching = TRUE
-          ))
+          )) %>% 
+          formatRound(columns = c("density", "density_CV", "occurrence", "occurrence_CV") ,digits = 3)
 
 download_this(metric_outputs,
               output_name = "PRICO_SurveyEstimates",
@@ -131,7 +132,8 @@ datatable(metric_outputs,
             info = FALSE,
             paging = TRUE,
             searching = TRUE
-          ))
+          )) %>% 
+          formatRound(columns = c("density", "density_CV", "occurrence", "occurrence_CV") ,digits = 3)
 
 download_this(metric_outputs,
               output_name = "STTSTJ_SurveyEstimates",
@@ -187,7 +189,8 @@ datatable(metric_outputs,
             info = FALSE,
             paging = TRUE,
             searching = TRUE
-          ))
+          )) %>% 
+          formatRound(columns = c("density", "density_CV", "occurrence", "occurrence_CV") ,digits = 3)
 
 download_this(metric_outputs,
               output_name = "STX_SurveyEstimates",

@@ -120,7 +120,7 @@ SEDAR_triage_output <- function(data, spp) {
     summarise(num_observations = sum(NUM), .groups = "drop") %>% 
     mutate(num_observations = if_else(YEAR < 2016,
                                       ceiling(num_observations),
-                                      num_observations * 2)) %>% 
+                                      ceiling(num_observations * 2))) %>% 
     group_by(YEAR, SPECIES_CD) %>% 
     summarise(num_observations = sum(num_observations), .groups = "drop")
   
