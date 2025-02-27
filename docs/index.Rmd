@@ -24,10 +24,15 @@ library(downloadthis)
 # Source Plotting Functions
 source('../code/Triage_Outputs.R', local = knitr::knit_global())
 
-# Read in data sets
+# Read in the calibrated Analysis Ready time series datasets 
 prico <- readRDS("../data/prico_2001_2023_calibrated.rds")
 sttstj <- readRDS("../data/sttstj_2001_2023_calibrated.rds")
 stx <- readRDS("../data/stx_2001_2023_calibrated.rds")
+
+# Read in from an excel the corresponding worksheet for each island group.  Ensure that the field 'SPECIES_CD' is present
+initial_prico_list <- read_xlsx("../data/island based FMP Stocks list.xlsx", sheet = "PRICO")
+initial_sttstj_list <- read_xlsx("../data/island based FMP Stocks list.xlsx", sheet = "STTSTJ")
+initial_stx_list <- read_xlsx("../data/island based FMP Stocks list.xlsx", sheet = "STX")
 ```
 
 # **Puerto Rico**
@@ -42,8 +47,6 @@ These species meet the following criteria
 <br>
 
 ```{r echo=FALSE}
-
-initial_prico_list <- read_xlsx("../data/island based FMP Stocks list.xlsx", sheet = "PRICO")
 
 table  <- SEDAR_triage_occurrence(df = prico, spp_list = initial_prico_list)
 
@@ -100,8 +103,6 @@ These species meet the following criteria
 
 ```{r echo=FALSE}
 
-initial_sttstj_list <- read_xlsx("../data/island based FMP Stocks list.xlsx", sheet = "STTSTJ")
-
 table  <- SEDAR_triage_occurrence(df = sttstj, spp_list = initial_sttstj_list)
 
 datatable(table, 
@@ -156,8 +157,6 @@ These species meet the following criteria
 <br>
 
 ```{r echo=FALSE}
-
-initial_stx_list <- read_xlsx("../data/island based FMP Stocks list.xlsx", sheet = "STX")
 
 table  <- SEDAR_triage_occurrence(df = stx, spp_list = initial_stx_list)
 

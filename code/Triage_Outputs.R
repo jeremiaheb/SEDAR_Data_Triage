@@ -98,6 +98,7 @@ SEDAR_triage_occurrence <- function(df, spp_list) {
     arrange(REGION, SPECIES_CD, YEAR) %>% 
     pivot_wider(id_cols = REGION:SPECIES_CD, names_from = YEAR, values_from = occurrence ) %>% 
     replace(., is.na(.), 0) %>% 
+  # Change the occurrence cuttoff here
     filter(if_any(starts_with('20'), function(x) x >= 0.01))
   
   # return final list of species that we will provide survey estimates          
